@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 
 interface ProductType {
@@ -22,6 +22,7 @@ const initialValue: ProductType[] = [
 
 //Provider - 하위 컴포넌트에 데이터 제공 -> Context의 변화를 감지
 export function ProductProvider({children}: {children: React.ReactNode}){
+    const productState = useState<ProductType[]>(initialValue);
     return(
         <ProductContext.Provider value = {initialValue}>
             {children}
