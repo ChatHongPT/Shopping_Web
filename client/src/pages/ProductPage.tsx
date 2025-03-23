@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useProductContext } from '../contexts/ProductContext';
 
 function ProductPage(){
-    const params = useParams();
+    const context = useProductContext();
 
     useEffect(()=>{
-        console.log(params);
-    });
+        console.log(context);
+    }, [context]);
     return <h1>상품 상세 페이지</h1>
 }
 
