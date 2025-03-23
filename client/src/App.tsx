@@ -1,11 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {useRef, useState} from 'react';
 
-function App() {
-  return (
-    <h1>쇼핑몰 웹 페이지를 만들어보자.</h1>
-  );
+interface ProductType {
+  id: number;
+  name: string;
+  explanation: string;
+  price: number;
 }
 
-export default App;
+interface ProductItemProps{
+  product: ProductType;
+  onDelete: (id: number) => void;
+  onUpdate: (product: ProductType)=> void;
+}
+
+const ProductItem = ({product, onDelete, onUpdate}: ProductItemProps) => {
+  const { id, name, price, explanation } = product;
+  const [isEditMode, setIsEditMode ] = useState(false);
+  const [editName, setIsEditName] = useState(product.name);
+  const [editExplanation, setEditExplanation] = useState(product.explanation);
+  const [editPrice, setEditPrice] = useState(product.price);
+  
+  return (
+    <div>
+      <div>{id}</div>
+      <div>{name}</div>
+      <div>{price}</div>
+      <div>{explanation}</div>
+
+      <button type = "button" onClick = {() => onDelete(id)}>
+        삭제하기
+      </button>
+
+      <button type = "button" onClick = {() => setIsEditMdoe((prev) => !prev)}>
+        수정하기
+      </button>
+
+      {isEditMode && (
+        <form onSubmit = {(event) => {
+          event.preventDefault();
+          onUpdate({
+            id,
+            name: editName,
+            price: editPrice,
+            explanation: editExplanation,
+          });
+        }}
+        >
+        <input type = "text" placeholder = "상품 이름" value={editName} onChange={(event) => setIsEditName(event.target.value)}/>
+        <input type = "text" placeholder = "상품 설명" value={editExplanation} onChange={(event) => setEditExplanation(event.target.value)}/>
+        <input type = "number" placeholder = "상품 가격" value={editPrice} onChange={(event) => setEditPrice(parseInt(event.target.value, 18))}/>
+        <input type = "submit" value = "상품 수정하기"/>>
+        </form>
+      )}
+    </div>
+  );
+};
+
