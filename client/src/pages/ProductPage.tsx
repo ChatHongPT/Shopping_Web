@@ -1,13 +1,18 @@
-import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useProductContext } from '../contexts/ProductContext';
 
 function ProductPage(){
-    const context = useProductContext();
+    const {productId} = useParams<{productId: string}>();
+    const products = useProductContext();
+    const foundProduct = products.find((product) => product.id === parseInt(productId!, 10));
 
-    useEffect(()=>{
-        console.log(context);
-    }, [context]);
-    return <h1>상품 상세 페이지</h1>
+    return (
+        <div>
+            <h1>{foundProduct?.name}</h1>
+            <p>{foundProduct?.explanation}</p>
+            <span>{foundProduct?.price}</span>
+        </div>
+    )
 }
 
 export default ProductPage;
