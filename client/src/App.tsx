@@ -1,4 +1,12 @@
+import { Route, Routes } from "react-router-dom";
+import { HomePage } from "./pages";
+
 function App(){
-  return <h1> 빈 화면입니다. </h1>
+  return(
+    <Routes>
+      <Route index element = {<HomePage />} />
+    </Routes>
+  );
 }
+
 export default App;
