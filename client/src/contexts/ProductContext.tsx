@@ -1,4 +1,5 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
+
 
 interface ProductType {
     id: number;
@@ -7,6 +8,7 @@ interface ProductType {
     price: number;
 }
 
+//Context - 데이터를 담을 수 있는 공간
 const ProductContext = createContext<ProductType[]>([]);
 
 const initialValue: ProductType[] = [
@@ -18,10 +20,16 @@ const initialValue: ProductType[] = [
       },
 ];
 
+//Provider - 하위 컴포넌트에 데이터 제공 -> Context의 변화를 감지
 export function ProductProvider({children}: {children: React.ReactNode}){
     return(
         <ProductContext.Provider value = {initialValue}>
             {children}
         </ProductContext.Provider>
     );
+}
+
+//Consumer - Context 사용하는 컴포넌트
+export function useProductContext(): ProductType[]{
+    return useContext(ProductContext);
 }
