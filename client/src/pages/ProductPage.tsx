@@ -6,6 +6,9 @@ function ProductPage(){
     const products = useProductContext();
     const foundProduct = products.find((product) => product.id === parseInt(productId!, 10));
 
+    if(!foundProduct){
+        return <h1>상품을 찾을 수 없습니다.</h1>;
+    }
     return (
         <div>
             <h1>{foundProduct?.name}</h1>
