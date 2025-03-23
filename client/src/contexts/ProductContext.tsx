@@ -8,8 +8,13 @@ interface ProductType {
     price: number;
 }
 
+type ProductContextType = [
+    ProductType[],
+    React.Dispatch<React.SetStateAction<ProductType[]>>
+];
+
 //Context - 데이터를 담을 수 있는 공간
-const ProductContext = createContext<ProductType[]>([]);
+const ProductContext = createContext<ProductContextType | null>(null);
 
 const initialValue: ProductType[] = [
     {
@@ -24,7 +29,7 @@ const initialValue: ProductType[] = [
 export function ProductProvider({children}: {children: React.ReactNode}){
     const productState = useState<ProductType[]>(initialValue);
     return(
-        <ProductContext.Provider value = {initialValue}>
+        <ProductContext.Provider value = {productState}>
             {children}
         </ProductContext.Provider>
     );
