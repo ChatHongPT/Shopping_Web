@@ -36,6 +36,6 @@ export function ProductProvider({children}: {children: React.ReactNode}){
 }
 
 //Consumer - Context 사용하는 컴포넌트
-export function useProductContext(): ProductType[]{
-    return useContext(ProductContext);
+export function useProductContext(){
+    return useContext(ProductContext) as ProductContextType;
 }

@@ -3,7 +3,7 @@ import { useProductContext } from '../contexts/ProductContext';
 
 function ProductPage(){
     const {productId} = useParams<{productId: string}>();
-    const products = useProductContext();
+    const [products] = useProductContext();
     const foundProduct = products.find((product) => product.id === parseInt(productId!, 10));
 
     if(!foundProduct){

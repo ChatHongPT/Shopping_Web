@@ -1,5 +1,6 @@
-import {useRef, useState} from 'react';
+import { useEffect, useRef, useState} from 'react';
 import { Link } from 'react-router-dom';
+import { useProductContext } from "../contexts/ProductContext";
 
 interface ProductType {
   id: number;
@@ -60,14 +61,7 @@ const ProductItem = ({product, onDelete, onUpdate}: ProductItemProps) => {
 };
 
 function HomePage(){
-  const [products, setProducts] = useState<ProductType[]>([
-    {
-      id: 0,
-      name: 'Iphone 13 Max',
-      explanation: '디스플레이는 6.1인치 19.5:9 비율의 2532x1170 해상도를 지원하며 패널 형식은 AMOLED 방식의 Super Retina XDR 디스플레이이다. 인치당 픽셀 수는 460 ppi이다. 120Hz의 터치 샘플링 레이트를 제공하고 명암비는 2,000,000:1이다.',
-      price: 1230000,
-    },
-  ]);
+  const [products, setProducts] = useProductContext();
   const [name, setName] = useState("");
   const [explanation, setExplanation] = useState("");
   const [price, setPrice] = useState(0);
@@ -97,6 +91,12 @@ function HomePage(){
       products.map((product) => product.id === updateProduct.id ? updateProduct : product)
     );
   };
+
+  useEffect(()=>{
+    fetch('http://localhost:3090/product')
+    .then((response) => response.json())
+    .then((data) => console.log(data));
+  }, []);
 
   return (
     <>
