@@ -93,7 +93,7 @@ function HomePage(){
   };
 
   useEffect(()=>{
-    fetch('http://localhost:3090/product')
+    fetch('/product')
     .then((response) => response.json())
     .then((data) => console.log(data));
   }, []);
